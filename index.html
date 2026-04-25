@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Website Requirements Form</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root {
     --bg: #080b12; --surface: #0f1420; --surface2: #141928;
@@ -153,9 +152,13 @@
   }
   .toast.show { transform:translateX(-50%) translateY(0); }
   .toast.error { background:#ef4444; color:#fff; box-shadow:0 8px 32px rgba(239,68,68,0.4); }
-  .hint { font-size:11px; color:var(--muted); margin-top:5px; }
   .spinner { width:18px; height:18px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.6s linear infinite; flex-shrink:0; display:inline-block; }
   @keyframes spin { to { transform:rotate(360deg); } }
+  .success-screen { display:none; text-align:center; padding:60px 20px; }
+  .success-screen.show { display:block; }
+  .success-icon { font-size:64px; margin-bottom:20px; }
+  .success-screen h2 { font-family:'Syne',sans-serif; font-size:28px; color:#10d9a0; margin-bottom:12px; }
+  .success-screen p { color:var(--muted2); font-size:15px; line-height:1.7; }
 </style>
 </head>
 <body>
@@ -184,7 +187,26 @@
 </div>
 
 <div class="form-wrap">
-  <form id="reqForm">
+
+  <!-- SUCCESS SCREEN -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🎉</div>
+    <h2>Requirements Sent!</h2>
+    <p>Aapki saari details developer ke email par pahunch gayi hain.<br>Jald hi aapko quote aur timeline mili gi!</p>
+  </div>
+
+  <!-- MAIN FORM — Formspree action -->
+  <form id="reqForm" action="https://formspree.io/f/xjgjlqde" method="POST">
+
+    <!-- Hidden fields for checkboxes/toggles -->
+    <input type="hidden" name="_subject" value="🖥️ New Website Requirements Received!">
+    <input type="hidden" name="pages_selected" id="h_pages">
+    <input type="hidden" name="products_selected" id="h_products">
+    <input type="hidden" name="payment_selected" id="h_payment">
+    <input type="hidden" name="design_assets" id="h_design">
+    <input type="hidden" name="auth_features" id="h_auth">
+    <input type="hidden" name="admin_features" id="h_admin">
+    <input type="hidden" name="product_count" id="h_pcount">
 
     <!-- 1. Business Info -->
     <div class="section">
@@ -193,14 +215,14 @@
         <div><h2>Business Information</h2><p>Your basic details</p></div>
       </div>
       <div class="grid-2">
-        <div class="field"><label class="fl">Full Name <span class="req">*</span></label><input type="text" id="name" placeholder="Your full name" required></div>
-        <div class="field"><label class="fl">Shop / Business Name <span class="req">*</span></label><input type="text" id="shopName" placeholder="e.g. Ali Laptops" required></div>
+        <div class="field"><label class="fl">Full Name <span class="req">*</span></label><input type="text" name="full_name" placeholder="Your full name" required></div>
+        <div class="field"><label class="fl">Shop / Business Name <span class="req">*</span></label><input type="text" name="shop_name" placeholder="e.g. Ali Laptops" required></div>
       </div>
       <div class="grid-2">
-        <div class="field"><label class="fl">WhatsApp Number <span class="req">*</span></label><input type="tel" id="phone" placeholder="+92 3XX XXXXXXX" required></div>
-        <div class="field"><label class="fl">Email Address</label><input type="email" id="clientEmail" placeholder="optional"></div>
+        <div class="field"><label class="fl">WhatsApp Number <span class="req">*</span></label><input type="tel" name="whatsapp" placeholder="+92 3XX XXXXXXX" required></div>
+        <div class="field"><label class="fl">Email Address</label><input type="email" name="client_email" placeholder="optional"></div>
       </div>
-      <div class="field"><label class="fl">Shop Location / City <span class="req">*</span></label><input type="text" id="location" placeholder="e.g. Hafeez Centre, Lahore" required></div>
+      <div class="field"><label class="fl">Shop Location / City <span class="req">*</span></label><input type="text" name="location" placeholder="e.g. Hafeez Centre, Lahore" required></div>
     </div>
 
     <!-- 2. Pages -->
@@ -215,20 +237,20 @@
         <span>pages</span>
       </div>
       <div class="pages-grid">
-        <div class="page-chip"><input type="checkbox" id="pg1" name="pages" value="Home Page"><label for="pg1"><span class="pgn">1</span>🏠 Home</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg2" name="pages" value="Shop/Products"><label for="pg2"><span class="pgn">2</span>🛒 Shop</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg3" name="pages" value="Product Detail"><label for="pg3"><span class="pgn">3</span>💻 Product Detail</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg4" name="pages" value="Cart Page"><label for="pg4"><span class="pgn">4</span>🧺 Cart</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg5" name="pages" value="Checkout Page"><label for="pg5"><span class="pgn">5</span>💳 Checkout</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg6" name="pages" value="Order Confirmation"><label for="pg6"><span class="pgn">6</span>✅ Order Confirm</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg7" name="pages" value="Login/Signup"><label for="pg7"><span class="pgn">7</span>🔐 Login/Signup</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg8" name="pages" value="My Account"><label for="pg8"><span class="pgn">8</span>👤 My Account</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg9" name="pages" value="My Orders"><label for="pg9"><span class="pgn">9</span>📦 My Orders</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg10" name="pages" value="Admin Dashboard"><label for="pg10"><span class="pgn">10</span>⚙️ Admin Panel</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg11" name="pages" value="Contact Us"><label for="pg11"><span class="pgn">11</span>📞 Contact Us</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg12" name="pages" value="About Us"><label for="pg12"><span class="pgn">12</span>ℹ️ About Us</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg13" name="pages" value="Search Results"><label for="pg13"><span class="pgn">13</span>🔍 Search</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg14" name="pages" value="Wishlist Page"><label for="pg14"><span class="pgn">14</span>❤️ Wishlist</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg1" class="pg-cb" value="Home Page"><label for="pg1"><span class="pgn">1</span>🏠 Home</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg2" class="pg-cb" value="Shop/Products"><label for="pg2"><span class="pgn">2</span>🛒 Shop</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg3" class="pg-cb" value="Product Detail"><label for="pg3"><span class="pgn">3</span>💻 Product Detail</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg4" class="pg-cb" value="Cart Page"><label for="pg4"><span class="pgn">4</span>🧺 Cart</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg5" class="pg-cb" value="Checkout Page"><label for="pg5"><span class="pgn">5</span>💳 Checkout</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg6" class="pg-cb" value="Order Confirmation"><label for="pg6"><span class="pgn">6</span>✅ Order Confirm</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg7" class="pg-cb" value="Login/Signup"><label for="pg7"><span class="pgn">7</span>🔐 Login/Signup</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg8" class="pg-cb" value="My Account"><label for="pg8"><span class="pgn">8</span>👤 My Account</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg9" class="pg-cb" value="My Orders"><label for="pg9"><span class="pgn">9</span>📦 My Orders</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg10" class="pg-cb" value="Admin Dashboard"><label for="pg10"><span class="pgn">10</span>⚙️ Admin Panel</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg11" class="pg-cb" value="Contact Us"><label for="pg11"><span class="pgn">11</span>📞 Contact Us</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg12" class="pg-cb" value="About Us"><label for="pg12"><span class="pgn">12</span>ℹ️ About Us</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg13" class="pg-cb" value="Search Results"><label for="pg13"><span class="pgn">13</span>🔍 Search</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg14" class="pg-cb" value="Wishlist Page"><label for="pg14"><span class="pgn">14</span>❤️ Wishlist</label></div>
       </div>
     </div>
 
@@ -241,32 +263,32 @@
       <div class="field">
         <label class="fl">Product types</label>
         <div class="chips">
-          <div class="chip teal"><input type="checkbox" id="p1" name="products" value="Laptops"><label for="p1">💻 Laptops</label></div>
-          <div class="chip teal"><input type="checkbox" id="p2" name="products" value="Desktops"><label for="p2">🖥️ Desktops</label></div>
-          <div class="chip teal"><input type="checkbox" id="p3" name="products" value="Accessories"><label for="p3">⌨️ Accessories</label></div>
-          <div class="chip teal"><input type="checkbox" id="p4" name="products" value="Mobiles"><label for="p4">📱 Mobiles</label></div>
-          <div class="chip teal"><input type="checkbox" id="p5" name="products" value="Parts"><label for="p5">🔧 Parts</label></div>
-          <div class="chip teal"><input type="checkbox" id="p6" name="products" value="Other"><label for="p6">📦 Other</label></div>
+          <div class="chip teal"><input type="checkbox" id="p1" class="prod-cb" value="Laptops"><label for="p1">💻 Laptops</label></div>
+          <div class="chip teal"><input type="checkbox" id="p2" class="prod-cb" value="Desktops"><label for="p2">🖥️ Desktops</label></div>
+          <div class="chip teal"><input type="checkbox" id="p3" class="prod-cb" value="Accessories"><label for="p3">⌨️ Accessories</label></div>
+          <div class="chip teal"><input type="checkbox" id="p4" class="prod-cb" value="Mobiles"><label for="p4">📱 Mobiles</label></div>
+          <div class="chip teal"><input type="checkbox" id="p5" class="prod-cb" value="Parts"><label for="p5">🔧 Parts</label></div>
+          <div class="chip teal"><input type="checkbox" id="p6" class="prod-cb" value="Other"><label for="p6">📦 Other</label></div>
         </div>
       </div>
       <div class="field">
         <label class="fl">Approx. total products?</label>
         <div class="range-wrap">
           <input type="range" id="productCount" min="10" max="1000" step="10" value="100"
-            oninput="document.getElementById('pcVal').textContent=this.value+' products'">
+            oninput="document.getElementById('pcVal').textContent=this.value+' products'; document.getElementById('h_pcount').value=this.value+' products'">
           <div class="rval" id="pcVal">100 products</div>
         </div>
       </div>
       <div class="field">
         <label class="fl">Categories / Brands</label>
-        <input type="text" id="categories" placeholder="e.g. Dell, HP, Lenovo, Gaming, Used, New">
+        <input type="text" name="categories" placeholder="e.g. Dell, HP, Lenovo, Gaming, Used, New">
       </div>
       <div class="field">
         <label class="fl">New or used items?</label>
         <div class="chips">
-          <div class="chip"><input type="radio" id="u1" name="usedItems" value="New Only"><label for="u1">✨ New Only</label></div>
-          <div class="chip"><input type="radio" id="u2" name="usedItems" value="Used Only"><label for="u2">♻️ Used Only</label></div>
-          <div class="chip"><input type="radio" id="u3" name="usedItems" value="Both"><label for="u3">🔀 Both</label></div>
+          <div class="chip"><input type="radio" id="u1" name="condition" value="New Only"><label for="u1">✨ New Only</label></div>
+          <div class="chip"><input type="radio" id="u2" name="condition" value="Used Only"><label for="u2">♻️ Used Only</label></div>
+          <div class="chip"><input type="radio" id="u3" name="condition" value="Both"><label for="u3">🔀 Both</label></div>
         </div>
       </div>
     </div>
@@ -277,12 +299,12 @@
         <div class="s-icon s-red">🔐</div>
         <div><h2>User Authentication</h2><p>Customer login system</p></div>
       </div>
-      <div class="toggle-row"><div><div class="tl">Email & Password Login</div><div class="ts">Customer signs up with email</div></div><label class="toggle"><input type="checkbox" id="a1" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Google One-Click Login</div><div class="ts">Sign in with Google account</div></div><label class="toggle"><input type="checkbox" id="a2"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Profile Picture Upload</div><div class="ts">Customer can upload their photo</div></div><label class="toggle"><input type="checkbox" id="a3"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Order History for Customers</div><div class="ts">View past orders in My Account</div></div><label class="toggle"><input type="checkbox" id="a4" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Wishlist / Save Products</div><div class="ts">Heart button to save for later</div></div><label class="toggle"><input type="checkbox" id="a5"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Forgot Password (Email Reset)</div><div class="ts">Reset password via email</div></div><label class="toggle"><input type="checkbox" id="a6" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Email & Password Login</div><div class="ts">Customer signs up with email</div></div><label class="toggle"><input type="checkbox" id="a1" class="auth-cb" value="Email Login" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Google One-Click Login</div><div class="ts">Sign in with Google account</div></div><label class="toggle"><input type="checkbox" id="a2" class="auth-cb" value="Google Login"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Profile Picture Upload</div><div class="ts">Customer can upload their photo</div></div><label class="toggle"><input type="checkbox" id="a3" class="auth-cb" value="Profile Picture"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Order History for Customers</div><div class="ts">View past orders in My Account</div></div><label class="toggle"><input type="checkbox" id="a4" class="auth-cb" value="Order History" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Wishlist / Save Products</div><div class="ts">Heart button to save for later</div></div><label class="toggle"><input type="checkbox" id="a5" class="auth-cb" value="Wishlist"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Forgot Password (Email Reset)</div><div class="ts">Reset password via email</div></div><label class="toggle"><input type="checkbox" id="a6" class="auth-cb" value="Forgot Password" checked><span class="tslider"></span></label></div>
     </div>
 
     <!-- 5. Admin -->
@@ -291,14 +313,14 @@
         <div class="s-icon s-orange">⚙️</div>
         <div><h2>Admin Dashboard</h2><p>What you can manage yourself</p></div>
       </div>
-      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Products</div><div class="ts">Full product management</div></div><label class="toggle"><input type="checkbox" id="adm1" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Categories</div><div class="ts">Organize product categories</div></div><label class="toggle"><input type="checkbox" id="adm2" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">View & Manage All Orders</div><div class="ts">Update order status, view details</div></div><label class="toggle"><input type="checkbox" id="adm3" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">User Management</div><div class="ts">View, block or delete customers</div></div><label class="toggle"><input type="checkbox" id="adm4" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Sales Analytics & Charts</div><div class="ts">Monthly income, orders graph</div></div><label class="toggle"><input type="checkbox" id="adm5" checked><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Stock / Inventory Tracking</div><div class="ts">How many units in stock</div></div><label class="toggle"><input type="checkbox" id="adm6"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Homepage Banner Management</div><div class="ts">Upload and change banners yourself</div></div><label class="toggle"><input type="checkbox" id="adm7"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Discount / Coupon Codes</div><div class="ts">Create promo codes for customers</div></div><label class="toggle"><input type="checkbox" id="adm8"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Products</div><div class="ts">Full product management</div></div><label class="toggle"><input type="checkbox" id="adm1" class="admin-cb" value="Product Management" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Categories</div><div class="ts">Organize product categories</div></div><label class="toggle"><input type="checkbox" id="adm2" class="admin-cb" value="Category Management" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">View & Manage All Orders</div><div class="ts">Update order status, view details</div></div><label class="toggle"><input type="checkbox" id="adm3" class="admin-cb" value="Order Management" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">User Management</div><div class="ts">View, block or delete customers</div></div><label class="toggle"><input type="checkbox" id="adm4" class="admin-cb" value="User Management" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Sales Analytics & Charts</div><div class="ts">Monthly income, orders graph</div></div><label class="toggle"><input type="checkbox" id="adm5" class="admin-cb" value="Sales Analytics" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Stock / Inventory Tracking</div><div class="ts">How many units in stock</div></div><label class="toggle"><input type="checkbox" id="adm6" class="admin-cb" value="Stock Tracking"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Homepage Banner Management</div><div class="ts">Upload and change banners yourself</div></div><label class="toggle"><input type="checkbox" id="adm7" class="admin-cb" value="Banner Management"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Discount / Coupon Codes</div><div class="ts">Create promo codes for customers</div></div><label class="toggle"><input type="checkbox" id="adm8" class="admin-cb" value="Coupon System"><span class="tslider"></span></label></div>
     </div>
 
     <!-- 6. Payment -->
@@ -310,14 +332,14 @@
       <div class="field">
         <label class="fl">Payment methods</label>
         <div class="chips">
-          <div class="chip teal"><input type="checkbox" id="pay1" name="payment" value="Cash on Delivery"><label for="pay1">💵 Cash on Delivery</label></div>
-          <div class="chip teal"><input type="checkbox" id="pay2" name="payment" value="JazzCash"><label for="pay2">📲 JazzCash</label></div>
-          <div class="chip teal"><input type="checkbox" id="pay3" name="payment" value="EasyPaisa"><label for="pay3">📲 EasyPaisa</label></div>
-          <div class="chip teal"><input type="checkbox" id="pay4" name="payment" value="Bank Transfer"><label for="pay4">🏦 Bank Transfer</label></div>
-          <div class="chip teal"><input type="checkbox" id="pay5" name="payment" value="Debit/Credit Card"><label for="pay5">💳 Card</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay1" class="pay-cb" value="Cash on Delivery"><label for="pay1">💵 Cash on Delivery</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay2" class="pay-cb" value="JazzCash"><label for="pay2">📲 JazzCash</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay3" class="pay-cb" value="EasyPaisa"><label for="pay3">📲 EasyPaisa</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay4" class="pay-cb" value="Bank Transfer"><label for="pay4">🏦 Bank Transfer</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay5" class="pay-cb" value="Debit/Credit Card"><label for="pay5">💳 Card</label></div>
         </div>
       </div>
-      <div class="toggle-row"><div><div class="tl">Order Tracking Status</div><div class="ts">Pending → Shipped → Delivered</div></div><label class="toggle"><input type="checkbox" id="ptrack" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Order Tracking Status</div><div class="ts">Pending → Shipped → Delivered</div></div><label class="toggle"><input type="checkbox" name="order_tracking" value="Yes" checked><span class="tslider"></span></label></div>
       <div class="field" style="margin-top:13px;">
         <label class="fl">Delivery coverage?</label>
         <div class="chips">
@@ -337,24 +359,24 @@
       <div class="field">
         <label class="fl">What will you provide?</label>
         <div class="chips">
-          <div class="chip teal"><input type="checkbox" id="des1" name="design" value="Logo"><label for="des1">🖼️ Logo</label></div>
-          <div class="chip teal"><input type="checkbox" id="des2" name="design" value="Banners"><label for="des2">🖼️ Banners</label></div>
-          <div class="chip teal"><input type="checkbox" id="des3" name="design" value="Product Images"><label for="des3">📸 Product Photos</label></div>
-          <div class="chip teal"><input type="checkbox" id="des4" name="design" value="Color Scheme"><label for="des4">🎨 Colors</label></div>
-          <div class="chip teal"><input type="checkbox" id="des5" name="design" value="Reference Website"><label for="des5">🔗 Reference Site</label></div>
-          <div class="chip amber"><input type="checkbox" id="des6" name="design" value="Nothing — developer decides"><label for="des6">❌ Nothing</label></div>
+          <div class="chip teal"><input type="checkbox" id="des1" class="des-cb" value="Logo"><label for="des1">🖼️ Logo</label></div>
+          <div class="chip teal"><input type="checkbox" id="des2" class="des-cb" value="Banners"><label for="des2">🖼️ Banners</label></div>
+          <div class="chip teal"><input type="checkbox" id="des3" class="des-cb" value="Product Images"><label for="des3">📸 Product Photos</label></div>
+          <div class="chip teal"><input type="checkbox" id="des4" class="des-cb" value="Color Scheme"><label for="des4">🎨 Colors</label></div>
+          <div class="chip teal"><input type="checkbox" id="des5" class="des-cb" value="Reference Website"><label for="des5">🔗 Reference Site</label></div>
+          <div class="chip amber"><input type="checkbox" id="des6" class="des-cb" value="Nothing — developer decides"><label for="des6">❌ Nothing</label></div>
         </div>
       </div>
       <div class="field">
         <label class="fl">Reference website / style inspiration</label>
-        <input type="text" id="refSite" placeholder="Paste link or describe what you like">
+        <input type="text" name="ref_site" placeholder="Paste link or describe what you like">
       </div>
       <div class="field">
         <label class="fl">Website language?</label>
         <div class="chips">
-          <div class="chip"><input type="radio" id="l1" name="lang" value="English"><label for="l1">🇬🇧 English</label></div>
-          <div class="chip"><input type="radio" id="l2" name="lang" value="Urdu"><label for="l2">🇵🇰 Urdu</label></div>
-          <div class="chip"><input type="radio" id="l3" name="lang" value="Both"><label for="l3">🔀 Both</label></div>
+          <div class="chip"><input type="radio" id="l1" name="language" value="English"><label for="l1">🇬🇧 English</label></div>
+          <div class="chip"><input type="radio" id="l2" name="language" value="Urdu"><label for="l2">🇵🇰 Urdu</label></div>
+          <div class="chip"><input type="radio" id="l3" name="language" value="Both"><label for="l3">🔀 Both</label></div>
         </div>
       </div>
     </div>
@@ -368,16 +390,16 @@
       <div class="field">
         <label class="fl">Do you have a domain name?</label>
         <div class="chips">
-          <div class="chip"><input type="radio" id="dom1" name="domain" value="Yes, I have one"><label for="dom1">✅ Yes</label></div>
-          <div class="chip"><input type="radio" id="dom2" name="domain" value="No, need to buy"><label for="dom2">❌ No, need help</label></div>
+          <div class="chip"><input type="radio" id="dom1" name="domain_have" value="Yes, I have one"><label for="dom1">✅ Yes</label></div>
+          <div class="chip"><input type="radio" id="dom2" name="domain_have" value="No, need to buy"><label for="dom2">❌ No, need help</label></div>
         </div>
       </div>
       <div class="field">
         <label class="fl">Domain name (if any)</label>
-        <input type="text" id="domainName" placeholder="e.g. alilaptops.com">
+        <input type="text" name="domain_name" placeholder="e.g. alilaptops.com">
       </div>
-      <div class="toggle-row"><div><div class="tl">SEO (Appear on Google)</div><div class="ts">When people search laptops, your site shows</div></div><label class="toggle"><input type="checkbox" id="seo"><span class="tslider"></span></label></div>
-      <div class="toggle-row"><div><div class="tl">Monthly Maintenance Package</div><div class="ts">Developer updates & manages site monthly</div></div><label class="toggle"><input type="checkbox" id="maint"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">SEO (Appear on Google)</div><div class="ts">When people search laptops, your site shows</div></div><label class="toggle"><input type="checkbox" name="seo" value="Yes"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Monthly Maintenance Package</div><div class="ts">Developer updates & manages site monthly</div></div><label class="toggle"><input type="checkbox" name="maintenance" value="Yes"><span class="tslider"></span></label></div>
       <div class="field" style="margin-top:13px;">
         <label class="fl">Code & website rights after delivery?</label>
         <div class="chips">
@@ -413,7 +435,7 @@
       </div>
       <div class="field">
         <label class="fl">Anything extra or special requirements?</label>
-        <textarea id="notes" placeholder="Write anything you want to add..."></textarea>
+        <textarea name="notes" placeholder="Write anything you want to add..."></textarea>
       </div>
     </div>
 
@@ -430,16 +452,43 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ========== EmailJS Setup ==========
-  (function(){ emailjs.init({ publicKey: "GzmFM2SoWvYfZxJyp" }); })();
-  // ====================================
-
-  document.querySelectorAll('input[name="pages"]').forEach(cb => {
+  // Page counter
+  document.querySelectorAll('.pg-cb').forEach(cb => {
     cb.addEventListener('change', () => {
       document.getElementById('pageCount').textContent =
-        document.querySelectorAll('input[name="pages"]:checked').length;
+        document.querySelectorAll('.pg-cb:checked').length;
     });
   });
+
+  // Init product count hidden field
+  document.getElementById('h_pcount').value = '100 products';
+
+  // Collect checkboxes into hidden fields before submit
+  function collectHiddenFields() {
+    // Pages
+    const pages = [...document.querySelectorAll('.pg-cb:checked')].map(x=>x.value);
+    document.getElementById('h_pages').value = pages.length + ' pages: ' + (pages.join(', ') || 'None');
+
+    // Products
+    const prods = [...document.querySelectorAll('.prod-cb:checked')].map(x=>x.value);
+    document.getElementById('h_products').value = prods.join(', ') || 'Not selected';
+
+    // Payment
+    const pays = [...document.querySelectorAll('.pay-cb:checked')].map(x=>x.value);
+    document.getElementById('h_payment').value = pays.join(', ') || 'Not selected';
+
+    // Design
+    const des = [...document.querySelectorAll('.des-cb:checked')].map(x=>x.value);
+    document.getElementById('h_design').value = des.join(', ') || 'Not selected';
+
+    // Auth
+    const auth = [...document.querySelectorAll('.auth-cb:checked')].map(x=>x.value);
+    document.getElementById('h_auth').value = auth.join(', ') || 'None';
+
+    // Admin
+    const admin = [...document.querySelectorAll('.admin-cb:checked')].map(x=>x.value);
+    document.getElementById('h_admin').value = admin.join(', ') || 'None';
+  }
 
   function showToast(msg, isError=false) {
     const t = document.getElementById('toast');
@@ -449,64 +498,37 @@
     setTimeout(() => t.classList.remove('show'), 4500);
   }
 
-  const gc = n => [...document.querySelectorAll(`input[name="${n}"]:checked`)].map(x=>x.value).join(', ') || 'Not selected';
-  const gt = id => document.getElementById(id).checked ? 'Yes' : 'No';
-  const gv = id => document.getElementById(id).value.trim() || '—';
-
   document.getElementById('reqForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+    collectHiddenFields();
+
     const btn = document.getElementById('submitBtn');
     const btnText = document.getElementById('btnText');
-    const pgCount = document.querySelectorAll('input[name="pages"]:checked').length;
-
     btn.disabled = true;
     btnText.innerHTML = '<span class="spinner"></span> Sending...';
 
-    const params = {
-      to_email:        'hafizmahtabafzal819@gmail.com',
-      client_name:     gv('name'),
-      shop_name:       gv('shopName'),
-      phone:           gv('phone'),
-      client_email:    gv('clientEmail'),
-      location:        gv('location'),
-      pages:           pgCount + ' pages: ' + gc('pages'),
-      products:        gc('products'),
-      product_count:   document.getElementById('productCount').value + ' products',
-      categories:      gv('categories'),
-      condition:       gc('usedItems'),
-      auth_email:      gt('a1'), auth_google:   gt('a2'),
-      auth_photo:      gt('a3'), auth_history:  gt('a4'),
-      auth_wishlist:   gt('a5'), auth_forgot:   gt('a6'),
-      adm_products:    gt('adm1'), adm_categories: gt('adm2'),
-      adm_orders:      gt('adm3'), adm_users:     gt('adm4'),
-      adm_analytics:   gt('adm5'), adm_stock:     gt('adm6'),
-      adm_banners:     gt('adm7'), adm_coupons:   gt('adm8'),
-      payment:         gc('payment'),
-      order_tracking:  gt('ptrack'),
-      delivery:        gc('delivery'),
-      design_assets:   gc('design'),
-      ref_site:        gv('refSite'),
-      language:        gc('lang'),
-      domain_have:     gc('domain'),
-      domain_name:     gv('domainName'),
-      seo:             gt('seo'),
-      maintenance:     gt('maint'),
-      rights:          gc('rights'),
-      budget:          gc('budget'),
-      timeline:        gc('timeline'),
-      notes:           gv('notes'),
-    };
+    const formData = new FormData(this);
 
     try {
-      await emailjs.send('service_mernform', 'template_requirements', params);
-      showToast('✅ Requirements sent successfully!');
-      document.getElementById('reqForm').reset();
-      document.getElementById('pageCount').textContent = '0';
-      document.getElementById('pcVal').textContent = '100 products';
+      const res = await fetch('https://formspree.io/f/xjgjlqde', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        // Show success
+        document.querySelector('.form-wrap form').style.display = 'none';
+        document.getElementById('successScreen').classList.add('show');
+        document.querySelector('.benefits-wrap').style.display = 'none';
+        showToast('✅ Requirements sent successfully!');
+      } else {
+        const data = await res.json();
+        throw new Error(data?.errors?.[0]?.message || 'Send failed');
+      }
     } catch(err) {
       console.error(err);
-      showToast('❌ Send failed. Check EmailJS setup.', true);
-    } finally {
+      showToast('❌ Error: ' + err.message, true);
       btn.disabled = false;
       btnText.textContent = '📧 Send Requirements to Developer';
     }
