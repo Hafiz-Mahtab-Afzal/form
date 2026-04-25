@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Website Requirements Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080b12;
+    --surface: #0f1420;
+    --surface2: #141928;
+    --border: #1c2235;
+    --accent: #3b82f6;
+    --accent2: #10d9a0;
+    --accent3: #f59e0b;
+    --text: #e2e8f8;
+    --muted: #5a6380;
+    --muted2: #8892aa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    padding: 0 0 80px;
+    background-image:
+      radial-gradient(ellipse 60% 40% at 10% 5%, rgba(59,130,246,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(16,217,160,0.07) 0%, transparent 60%);
+  }
+  .hero {
+    background: linear-gradient(135deg, #0c1628 0%, #0a1a10 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(59,130,246,0.03) 80px, rgba(59,130,246,0.03) 81px),
+                repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(59,130,246,0.03) 80px, rgba(59,130,246,0.03) 81px);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .mern-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(59,130,246,0.12);
+    border: 1px solid rgba(59,130,246,0.3);
+    color: #93c5fd;
+    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+    text-transform: uppercase; padding: 7px 16px; border-radius: 20px; margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 5vw, 44px); font-weight: 800; line-height: 1.1; margin-bottom: 14px; color: #fff;
+  }
+  .hero h1 span { background: linear-gradient(90deg, #3b82f6, #10d9a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero p { color: var(--muted2); font-size: 14px; line-height: 1.7; max-width: 500px; margin: 0 auto 28px; }
+  .mern-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
+  .mern-pill {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px; padding: 7px 13px; font-size: 12px; color: var(--muted2);
+  }
+  .mern-pill strong { color: var(--text); font-weight: 600; }
+  .benefits-wrap { max-width: 720px; margin: 24px auto 0; padding: 0 20px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .benefit-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 14px; display: flex; gap: 10px; align-items: flex-start;
+  }
+  .benefit-card h4 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .benefit-card p { font-size: 11.5px; color: var(--muted2); line-height: 1.5; }
+  .form-wrap { max-width: 720px; margin: 24px auto 0; padding: 0 20px; }
+  .section {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px; padding: 24px; margin-bottom: 14px; transition: border-color 0.2s;
+  }
+  .section:focus-within { border-color: rgba(59,130,246,0.35); }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
+  .s-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .s-blue { background: rgba(59,130,246,0.12); }
+  .s-teal { background: rgba(16,217,160,0.10); }
+  .s-orange { background: rgba(245,158,11,0.12); }
+  .s-red { background: rgba(239,68,68,0.10); }
+  .s-purple { background: rgba(167,139,250,0.12); }
+  .s-green { background: rgba(74,222,128,0.10); }
+  .s-yellow { background: rgba(250,204,21,0.10); }
+  .section-header h2 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #fff; }
+  .section-header p { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .field { margin-bottom: 15px; }
+  .field:last-child { margin-bottom: 0; }
+  label.fl { display: block; font-size: 12.5px; font-weight: 500; color: var(--muted2); margin-bottom: 7px; }
+  label.fl .req { color: var(--accent2); }
+  input[type="text"], input[type="tel"], input[type="email"], textarea, select {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 9px; color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 14px; padding: 10px 13px; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+  textarea { resize: vertical; min-height: 80px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip input { display: none; }
+  .chip label {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 500;
+    color: var(--muted2); cursor: pointer; transition: all 0.15s; margin-bottom: 0; user-select: none;
+  }
+  .chip input:checked + label { background: rgba(59,130,246,0.14); border-color: var(--accent); color: #93c5fd; }
+  .chip.teal input:checked + label { background: rgba(16,217,160,0.12); border-color: var(--accent2); color: #6ee7c7; }
+  .chip.amber input:checked + label { background: rgba(245,158,11,0.12); border-color: var(--accent3); color: #fcd34d; }
+  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .toggle-row:first-child { padding-top: 0; }
+  .tl { font-size: 13.5px; color: #c8d0e8; }
+  .ts { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
+  .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .tslider { position: absolute; inset: 0; background: rgba(255,255,255,0.08); border-radius: 11px; cursor: pointer; transition: 0.2s; }
+  .tslider::before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: #6b7280; border-radius: 50%; transition: 0.2s; }
+  .toggle input:checked + .tslider { background: var(--accent); }
+  .toggle input:checked + .tslider::before { transform: translateX(18px); background: #fff; }
+  .range-wrap { display: flex; align-items: center; gap: 12px; }
+  input[type="range"] { flex: 1; height: 4px; background: var(--border); border-radius: 2px; appearance: none; outline: none; border: none; padding: 0; }
+  input[type="range"]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; cursor: pointer; }
+  .rval { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); color: #93c5fd; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px; min-width: 64px; text-align: center; }
+  .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 8px; }
+  .page-chip input { display: none; }
+  .page-chip label {
+    display: flex; align-items: center; gap: 9px;
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 9px; padding: 10px 13px; font-size: 13px; font-weight: 500;
+    color: var(--muted2); cursor: pointer; transition: all 0.15s; margin-bottom: 0; user-select: none;
+  }
+  .page-chip label .pgn {
+    width: 22px; height: 22px; background: rgba(255,255,255,0.06);
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--muted); flex-shrink: 0; transition: all 0.15s;
+  }
+  .page-chip input:checked + label { background: rgba(16,217,160,0.1); border-color: var(--accent2); color: #6ee7c7; }
+  .page-chip input:checked + label .pgn { background: var(--accent2); color: #000; }
+  .pages-counter {
+    display: flex; align-items: center; gap: 10px;
+    background: rgba(16,217,160,0.08); border: 1px solid rgba(16,217,160,0.2);
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+  }
+  .pages-counter span { font-size: 13px; color: var(--muted2); }
+  .pages-counter strong { color: var(--accent2); font-size: 18px; font-family: 'Syne', sans-serif; font-weight: 800; }
+  .wa-num-wrap { background: rgba(37,211,102,0.07); border: 1px solid rgba(37,211,102,0.2); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+  .wa-num-wrap label.fl { color: #6ee7a0; }
+  .btn-wa {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff; border: none; border-radius: 12px;
+    font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
+    padding: 16px 32px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 24px rgba(37,211,102,0.25); letter-spacing: 0.3px;
+  }
+  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
+  .btn-wa svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
+  .wa-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
+  .hint { font-size: 11.5px; color: var(--muted); margin-top: 5px; }
+  select option { background: #141928; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="mern-badge">⚡ MERN Stack Web Development</div>
+    <h1>Professional <span>E-Commerce Website</span><br>Requirements Form</h1>
+    <p>Fill in your details below. Once done, everything will be sent directly to the developer on WhatsApp — no typing needed!</p>
+    <div class="mern-strip">
+      <div class="mern-pill">🌿 <strong>MongoDB</strong> Database</div>
+      <div class="mern-pill">⚡ <strong>Express.js</strong> Backend</div>
+      <div class="mern-pill">⚛️ <strong>React.js</strong> Frontend</div>
+      <div class="mern-pill">🟢 <strong>Node.js</strong> Server</div>
+    </div>
+  </div>
+</div>
+
+<div class="benefits-wrap">
+  <div class="benefits-grid">
+    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🚀</div><div><h4>Lightning Fast</h4><p>No page reloads — smooth experience like Daraz</p></div></div>
+    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🔒</div><div><h4>High Security</h4><p>JWT auth, encrypted passwords — safe from hackers</p></div></div>
+    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">📈</div><div><h4>Fully Scalable</h4><p>50 to 10,000+ products — no limits, no plugins</p></div></div>
+    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🎛️</div><div><h4>Custom Admin Panel</h4><p>Products, orders, users — all in your control</p></div></div>
+  </div>
+</div>
+
+<div class="form-wrap">
+  <form id="reqForm">
+
+    <div class="wa-num-wrap">
+      <label class="fl">📲 Developer WhatsApp Number (your number — where data will arrive)</label>
+      <input type="tel" id="devWa" placeholder="+92 3XX XXXXXXX — enter YOUR number here">
+      <p class="hint">Client submits → WhatsApp opens → message arrives on this number</p>
+    </div>
+
+    <!-- 1. Business Info -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-blue">🏪</div>
+        <div><h2>Business Information</h2><p>Client's basic details</p></div>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label class="fl">Full Name <span class="req">*</span></label><input type="text" id="name" placeholder="Your full name" required></div>
+        <div class="field"><label class="fl">Shop / Business Name <span class="req">*</span></label><input type="text" id="shopName" placeholder="e.g. Ali Laptops" required></div>
+      </div>
+      <div class="grid-2">
+        <div class="field"><label class="fl">WhatsApp Number <span class="req">*</span></label><input type="tel" id="phone" placeholder="+92 3XX XXXXXXX" required></div>
+        <div class="field"><label class="fl">Email Address</label><input type="email" id="email" placeholder="optional"></div>
+      </div>
+      <div class="field"><label class="fl">Shop Location / City <span class="req">*</span></label><input type="text" id="location" placeholder="e.g. Hafeez Centre, Lahore" required></div>
+    </div>
+
+    <!-- 2. Pages -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-teal">📄</div>
+        <div><h2>Website Pages</h2><p>Tick all the pages you need</p></div>
+      </div>
+      <div class="pages-counter">
+        <span>Pages selected:</span>
+        <strong id="pageCount">0</strong>
+        <span>pages</span>
+      </div>
+      <div class="pages-grid">
+        <div class="page-chip"><input type="checkbox" id="pg1" name="pages" value="Home Page"><label for="pg1"><span class="pgn">1</span>🏠 Home Page</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg2" name="pages" value="Shop / Products"><label for="pg2"><span class="pgn">2</span>🛒 Shop / Products</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg3" name="pages" value="Single Product Detail"><label for="pg3"><span class="pgn">3</span>💻 Product Detail</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg4" name="pages" value="Cart Page"><label for="pg4"><span class="pgn">4</span>🧺 Cart Page</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg5" name="pages" value="Checkout Page"><label for="pg5"><span class="pgn">5</span>💳 Checkout</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg6" name="pages" value="Order Confirmation"><label for="pg6"><span class="pgn">6</span>✅ Order Confirmation</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg7" name="pages" value="Login / Signup"><label for="pg7"><span class="pgn">7</span>🔐 Login / Signup</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg8" name="pages" value="My Account"><label for="pg8"><span class="pgn">8</span>👤 My Account</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg9" name="pages" value="My Orders"><label for="pg9"><span class="pgn">9</span>📦 My Orders</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg10" name="pages" value="Admin Dashboard"><label for="pg10"><span class="pgn">10</span>⚙️ Admin Dashboard</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg11" name="pages" value="Contact Us"><label for="pg11"><span class="pgn">11</span>📞 Contact Us</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg12" name="pages" value="About Us"><label for="pg12"><span class="pgn">12</span>ℹ️ About Us</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg13" name="pages" value="Search Results"><label for="pg13"><span class="pgn">13</span>🔍 Search Results</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg14" name="pages" value="Wishlist Page"><label for="pg14"><span class="pgn">14</span>❤️ Wishlist</label></div>
+      </div>
+    </div>
+
+    <!-- 3. Products -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-green">💻</div>
+        <div><h2>Products & Categories</h2><p>What will you sell?</p></div>
+      </div>
+      <div class="field">
+        <label class="fl">Product types</label>
+        <div class="chips">
+          <div class="chip teal"><input type="checkbox" id="p1" name="products" value="Laptops"><label for="p1">💻 Laptops</label></div>
+          <div class="chip teal"><input type="checkbox" id="p2" name="products" value="Desktops"><label for="p2">🖥️ Desktops</label></div>
+          <div class="chip teal"><input type="checkbox" id="p3" name="products" value="Accessories"><label for="p3">⌨️ Accessories</label></div>
+          <div class="chip teal"><input type="checkbox" id="p4" name="products" value="Mobiles"><label for="p4">📱 Mobiles</label></div>
+          <div class="chip teal"><input type="checkbox" id="p5" name="products" value="Parts"><label for="p5">🔧 Parts</label></div>
+          <div class="chip teal"><input type="checkbox" id="p6" name="products" value="Other"><label for="p6">📦 Other</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Approx. total products?</label>
+        <div class="range-wrap">
+          <input type="range" id="productCount" min="10" max="1000" step="10" value="100" oninput="document.getElementById('pcVal').textContent=this.value+' products'">
+          <div class="rval" id="pcVal">100 products</div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Categories / Brands</label>
+        <input type="text" id="categories" placeholder="e.g. Dell, HP, Lenovo, Gaming, Used, New">
+        <p class="hint">Comma separated</p>
+      </div>
+      <div class="field">
+        <label class="fl">New or used items?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="u1" name="usedItems" value="New Only"><label for="u1">✨ New Only</label></div>
+          <div class="chip"><input type="radio" id="u2" name="usedItems" value="Used Only"><label for="u2">♻️ Used Only</label></div>
+          <div class="chip"><input type="radio" id="u3" name="usedItems" value="Both"><label for="u3">🔀 Both</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Auth -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-red">🔐</div>
+        <div><h2>User Authentication</h2><p>Customer login system</p></div>
+      </div>
+      <div class="toggle-row"><div><div class="tl">Email & Password Login</div><div class="ts">Customer signs up with email</div></div><label class="toggle"><input type="checkbox" id="a1" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Google One-Click Login</div><div class="ts">Sign in with Google account</div></div><label class="toggle"><input type="checkbox" id="a2"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Profile Picture Upload</div><div class="ts">Customer can upload their photo</div></div><label class="toggle"><input type="checkbox" id="a3"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Order History for Customers</div><div class="ts">View past orders in My Account</div></div><label class="toggle"><input type="checkbox" id="a4" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Wishlist / Save Products</div><div class="ts">Heart button to save for later</div></div><label class="toggle"><input type="checkbox" id="a5"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Forgot Password (Email Reset)</div><div class="ts">Reset password via email</div></div><label class="toggle"><input type="checkbox" id="a6" checked><span class="tslider"></span></label></div>
+    </div>
+
+    <!-- 5. Admin -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-orange">⚙️</div>
+        <div><h2>Admin Dashboard</h2><p>What you can manage yourself</p></div>
+      </div>
+      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Products</div><div class="ts">Full product management</div></div><label class="toggle"><input type="checkbox" id="adm1" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Add / Edit / Delete Categories</div><div class="ts">Organize product categories</div></div><label class="toggle"><input type="checkbox" id="adm2" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">View & Manage All Orders</div><div class="ts">Update order status, view details</div></div><label class="toggle"><input type="checkbox" id="adm3" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">User Management</div><div class="ts">View, block or delete customers</div></div><label class="toggle"><input type="checkbox" id="adm4" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Sales Analytics & Charts</div><div class="ts">Monthly income, orders graph</div></div><label class="toggle"><input type="checkbox" id="adm5" checked><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Stock / Inventory Tracking</div><div class="ts">How many units in stock</div></div><label class="toggle"><input type="checkbox" id="adm6"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Homepage Banner Management</div><div class="ts">Upload and change banners yourself</div></div><label class="toggle"><input type="checkbox" id="adm7"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Discount / Coupon Codes</div><div class="ts">Create promo codes for customers</div></div><label class="toggle"><input type="checkbox" id="adm8"><span class="tslider"></span></label></div>
+    </div>
+
+    <!-- 6. Payment -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-green">💳</div>
+        <div><h2>Payment & Orders</h2><p>How customers will pay</p></div>
+      </div>
+      <div class="field">
+        <label class="fl">Payment methods <span class="req">*</span></label>
+        <div class="chips">
+          <div class="chip teal"><input type="checkbox" id="pay1" name="payment" value="Cash on Delivery"><label for="pay1">💵 Cash on Delivery</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay2" name="payment" value="JazzCash"><label for="pay2">📲 JazzCash</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay3" name="payment" value="EasyPaisa"><label for="pay3">📲 EasyPaisa</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay4" name="payment" value="Bank Transfer"><label for="pay4">🏦 Bank Transfer</label></div>
+          <div class="chip teal"><input type="checkbox" id="pay5" name="payment" value="Debit/Credit Card"><label for="pay5">💳 Card</label></div>
+        </div>
+      </div>
+      <div class="toggle-row"><div><div class="tl">WhatsApp Order Button</div><div class="ts">Customer orders via WhatsApp message</div></div><label class="toggle"><input type="checkbox" id="pwa"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Order Tracking Status</div><div class="ts">Pending → Shipped → Delivered</div></div><label class="toggle"><input type="checkbox" id="ptrack" checked><span class="tslider"></span></label></div>
+      <div class="field" style="margin-top:14px;">
+        <label class="fl">Delivery coverage?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="del1" name="delivery" value="Lahore Only"><label for="del1">📍 Lahore Only</label></div>
+          <div class="chip"><input type="radio" id="del2" name="delivery" value="All Pakistan"><label for="del2">🇵🇰 All Pakistan</label></div>
+          <div class="chip"><input type="radio" id="del3" name="delivery" value="In-Store Only"><label for="del3">🏪 In-Store Only</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Design -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-purple">🎨</div>
+        <div><h2>Design & Content</h2><p>What assets you will provide</p></div>
+      </div>
+      <div class="field">
+        <label class="fl">What will you provide?</label>
+        <div class="chips">
+          <div class="chip teal"><input type="checkbox" id="des1" name="design" value="Logo"><label for="des1">🖼️ Logo</label></div>
+          <div class="chip teal"><input type="checkbox" id="des2" name="design" value="Banners"><label for="des2">🖼️ Banners</label></div>
+          <div class="chip teal"><input type="checkbox" id="des3" name="design" value="Product Images"><label for="des3">📸 Product Photos</label></div>
+          <div class="chip teal"><input type="checkbox" id="des4" name="design" value="Color Scheme"><label for="des4">🎨 Colors</label></div>
+          <div class="chip teal"><input type="checkbox" id="des5" name="design" value="Reference Website"><label for="des5">🔗 Reference Site</label></div>
+          <div class="chip amber"><input type="checkbox" id="des6" name="design" value="Nothing — developer decides"><label for="des6">❌ Nothing</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Reference website / style inspiration</label>
+        <input type="text" id="refSite" placeholder="Paste link or describe what you like">
+      </div>
+      <div class="field">
+        <label class="fl">Website language?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="l1" name="lang" value="English"><label for="l1">🇬🇧 English</label></div>
+          <div class="chip"><input type="radio" id="l2" name="lang" value="Urdu"><label for="l2">🇵🇰 Urdu</label></div>
+          <div class="chip"><input type="radio" id="l3" name="lang" value="Both"><label for="l3">🔀 Both</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Domain & Rights -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-yellow">🌐</div>
+        <div><h2>Domain, Hosting & Rights</h2><p>Ownership details</p></div>
+      </div>
+      <div class="field">
+        <label class="fl">Do you have a domain name?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="dom1" name="domain" value="Yes, I have one"><label for="dom1">✅ Yes</label></div>
+          <div class="chip"><input type="radio" id="dom2" name="domain" value="No, need to buy"><label for="dom2">❌ No, need help</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Domain name (if any)</label>
+        <input type="text" id="domainName" placeholder="e.g. alilaptops.com">
+      </div>
+      <div class="toggle-row"><div><div class="tl">SEO (Appear on Google)</div><div class="ts">When people search laptops, your site shows</div></div><label class="toggle"><input type="checkbox" id="seo"><span class="tslider"></span></label></div>
+      <div class="toggle-row"><div><div class="tl">Monthly Maintenance Package</div><div class="ts">Developer updates & manages site monthly</div></div><label class="toggle"><input type="checkbox" id="maint"><span class="tslider"></span></label></div>
+      <div class="field" style="margin-top:14px;">
+        <label class="fl">Code & website rights after delivery? <span class="req">*</span></label>
+        <div class="chips">
+          <div class="chip teal"><input type="radio" id="r1" name="rights" value="100% client owns everything"><label for="r1">✅ 100% mine</label></div>
+          <div class="chip"><input type="radio" id="r2" name="rights" value="Shared rights"><label for="r2">🤝 Shared</label></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. Budget -->
+    <div class="section">
+      <div class="section-header">
+        <div class="s-icon s-orange">📅</div>
+        <div><h2>Budget & Timeline</h2><p>Your expectations</p></div>
+      </div>
+      <div class="field">
+        <label class="fl">Budget range (PKR)?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="b1" name="budget" value="Under 30,000 PKR"><label for="b1">Under 30k</label></div>
+          <div class="chip"><input type="radio" id="b2" name="budget" value="30,000 – 60,000 PKR"><label for="b2">30k – 60k</label></div>
+          <div class="chip"><input type="radio" id="b3" name="budget" value="60,000 – 100,000 PKR"><label for="b3">60k – 100k</label></div>
+          <div class="chip"><input type="radio" id="b4" name="budget" value="100,000+ PKR"><label for="b4">100k+</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Deadline?</label>
+        <div class="chips">
+          <div class="chip"><input type="radio" id="t1" name="timeline" value="ASAP (urgent)"><label for="t1">⚡ ASAP</label></div>
+          <div class="chip"><input type="radio" id="t2" name="timeline" value="Within 1 month"><label for="t2">1 Month</label></div>
+          <div class="chip"><input type="radio" id="t3" name="timeline" value="Within 2 months"><label for="t3">2 Months</label></div>
+          <div class="chip"><input type="radio" id="t4" name="timeline" value="Flexible"><label for="t4">🕐 Flexible</label></div>
+        </div>
+      </div>
+      <div class="field">
+        <label class="fl">Anything extra or special requirements?</label>
+        <textarea id="notes" placeholder="Write anything you want to add..."></textarea>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <button type="submit" class="btn-wa">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Send Requirements on WhatsApp
+      </button>
+      <p class="wa-note">Clicking will open WhatsApp with all requirements pre-filled as a message to the developer</p>
+    </div>
+
+  </form>
+</div>
+
+<script>
+  // Page counter
+  document.querySelectorAll('input[name="pages"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      document.getElementById('pageCount').textContent =
+        document.querySelectorAll('input[name="pages"]:checked').length;
+    });
+  });
+
+  // WhatsApp submit
+  document.getElementById('reqForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const devRaw = document.getElementById('devWa').value.replace(/\D/g, '');
+    if (!devRaw) { alert('Please enter your WhatsApp number at the top first!'); return; }
+
+    const gc  = (name) => [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x => x.value).join(', ') || 'Not selected';
+    const gt  = (id)   => document.getElementById(id).checked ? '✅ Yes' : '❌ No';
+    const gv  = (id)   => document.getElementById(id).value.trim() || '—';
+    const pgCount = document.querySelectorAll('input[name="pages"]:checked').length;
+
+    const msg =
+`🖥️ *MERN STACK WEBSITE REQUIREMENTS*
+_Submitted via Requirements Form_
+━━━━━━━━━━━━━━━━━━━━━━━
+
+👤 *BUSINESS INFO*
+• Name: ${gv('name')}
+• Shop: ${gv('shopName')}
+• WhatsApp: ${gv('phone')}
+• Email: ${gv('email')}
+• Location: ${gv('location')}
+
+📄 *PAGES REQUIRED (${pgCount} pages)*
+${gc('pages')}
+
+💻 *PRODUCTS*
+• Types: ${gc('products')}
+• Total: ${document.getElementById('productCount').value} products
+• Categories: ${gv('categories')}
+• Condition: ${gc('usedItems')}
+
+🔐 *AUTHENTICATION*
+• Email Login: ${gt('a1')}
+• Google Login: ${gt('a2')}
+• Profile Picture: ${gt('a3')}
+• Order History: ${gt('a4')}
+• Wishlist: ${gt('a5')}
+• Forgot Password: ${gt('a6')}
+
+⚙️ *ADMIN DASHBOARD*
+• Product CRUD: ${gt('adm1')}
+• Category CRUD: ${gt('adm2')}
+• Order Management: ${gt('adm3')}
+• User Management: ${gt('adm4')}
+• Analytics: ${gt('adm5')}
+• Stock Tracking: ${gt('adm6')}
+• Banner Management: ${gt('adm7')}
+• Coupon Codes: ${gt('adm8')}
+
+💳 *PAYMENT & ORDERS*
+• Methods: ${gc('payment')}
+• WhatsApp Order: ${gt('pwa')}
+• Order Tracking: ${gt('ptrack')}
+• Delivery: ${gc('delivery')}
+
+🎨 *DESIGN & CONTENT*
+• Assets: ${gc('design')}
+• Reference: ${gv('refSite')}
+• Language: ${gc('lang')}
+
+🌐 *DOMAIN & RIGHTS*
+• Has Domain: ${gc('domain')}
+• Domain: ${gv('domainName')}
+• SEO: ${gt('seo')}
+• Monthly Maintenance: ${gt('maint')}
+• Rights: ${gc('rights')}
+
+📅 *BUDGET & TIMELINE*
+• Budget: ${gc('budget')}
+• Deadline: ${gc('timeline')}
+• Notes: ${gv('notes')}
+
+━━━━━━━━━━━━━━━━━━━━━━━
+⚡ MERN Stack — Fast, Secure & Scalable`;
+
+    window.open(`https://wa.me/${devRaw}?text=${encodeURIComponent(msg)}`, '_blank');
+  });
+</script>
+</body>
+</html>
