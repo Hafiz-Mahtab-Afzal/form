@@ -2,171 +2,160 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Website Requirements Form</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
   :root {
-    --bg: #080b12;
-    --surface: #0f1420;
-    --surface2: #141928;
-    --border: #1c2235;
-    --accent: #3b82f6;
-    --accent2: #10d9a0;
-    --accent3: #f59e0b;
-    --text: #e2e8f8;
-    --muted: #5a6380;
-    --muted2: #8892aa;
+    --bg: #080b12; --surface: #0f1420; --surface2: #141928;
+    --border: #1c2235; --accent: #3b82f6; --accent2: #10d9a0;
+    --accent3: #f59e0b; --text: #e2e8f8; --muted: #5a6380; --muted2: #8892aa;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    padding: 0 0 80px;
+    background: var(--bg); color: var(--text);
+    font-family: 'DM Sans', sans-serif; min-height: 100vh; padding: 0 0 60px;
     background-image:
-      radial-gradient(ellipse 60% 40% at 10% 5%, rgba(59,130,246,0.1) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(16,217,160,0.07) 0%, transparent 60%);
+      radial-gradient(ellipse 60% 40% at 10% 5%, rgba(59,130,246,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 90%, rgba(16,217,160,0.05) 0%, transparent 60%);
   }
   .hero {
     background: linear-gradient(135deg, #0c1628 0%, #0a1a10 100%);
     border-bottom: 1px solid var(--border);
-    padding: 48px 24px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
+    padding: 36px 20px 32px; text-align: center; position: relative; overflow: hidden;
   }
   .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(90deg, transparent, transparent 80px, rgba(59,130,246,0.03) 80px, rgba(59,130,246,0.03) 81px),
-                repeating-linear-gradient(0deg, transparent, transparent 80px, rgba(59,130,246,0.03) 80px, rgba(59,130,246,0.03) 81px);
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg,transparent,transparent 60px,rgba(59,130,246,.03) 60px,rgba(59,130,246,.03) 61px),
+                repeating-linear-gradient(0deg,transparent,transparent 60px,rgba(59,130,246,.03) 60px,rgba(59,130,246,.03) 61px);
   }
-  .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; }
+  .hero-inner { position: relative; z-index: 1; max-width: 600px; margin: 0 auto; }
   .mern-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(59,130,246,0.12);
-    border: 1px solid rgba(59,130,246,0.3);
-    color: #93c5fd;
-    font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
-    text-transform: uppercase; padding: 7px 16px; border-radius: 20px; margin-bottom: 22px;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.3);
+    color: #93c5fd; font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; padding: 6px 14px; border-radius: 20px; margin-bottom: 16px;
   }
   .hero h1 {
     font-family: 'Syne', sans-serif;
-    font-size: clamp(26px, 5vw, 44px); font-weight: 800; line-height: 1.1; margin-bottom: 14px; color: #fff;
+    font-size: clamp(20px, 5.5vw, 38px); font-weight: 800;
+    line-height: 1.15; margin-bottom: 12px; color: #fff;
   }
-  .hero h1 span { background: linear-gradient(90deg, #3b82f6, #10d9a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero p { color: var(--muted2); font-size: 14px; line-height: 1.7; max-width: 500px; margin: 0 auto 28px; }
-  .mern-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
+  .hero h1 span { background: linear-gradient(90deg,#3b82f6,#10d9a0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .hero p { color: var(--muted2); font-size: 13px; line-height: 1.7; max-width: 420px; margin: 0 auto 20px; }
+  .mern-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: 7px; }
   .mern-pill {
-    display: flex; align-items: center; gap: 6px;
-    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 8px; padding: 7px 13px; font-size: 12px; color: var(--muted2);
+    display: flex; align-items: center; gap: 5px;
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 7px; padding: 5px 10px; font-size: 11px; color: var(--muted2);
   }
   .mern-pill strong { color: var(--text); font-weight: 600; }
-  .benefits-wrap { max-width: 720px; margin: 24px auto 0; padding: 0 20px; }
-  .benefits-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+  .benefits-wrap { max-width: 700px; margin: 16px auto 0; padding: 0 14px; }
+  .benefits-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
+  @media(min-width:560px){ .benefits-grid { grid-template-columns: repeat(4,1fr); } }
   .benefit-card {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 12px; padding: 14px; display: flex; gap: 10px; align-items: flex-start;
+    border-radius: 10px; padding: 12px; display: flex; gap: 8px; align-items: flex-start;
   }
-  .benefit-card h4 { font-family: 'Syne', sans-serif; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
-  .benefit-card p { font-size: 11.5px; color: var(--muted2); line-height: 1.5; }
-  .form-wrap { max-width: 720px; margin: 24px auto 0; padding: 0 20px; }
+  .benefit-card h4 { font-family:'Syne',sans-serif; font-size:12px; font-weight:700; color:#fff; margin-bottom:2px; }
+  .benefit-card p { font-size:11px; color:var(--muted2); line-height:1.4; }
+  .form-wrap { max-width: 700px; margin: 16px auto 0; padding: 0 14px; }
   .section {
     background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px; padding: 24px; margin-bottom: 14px; transition: border-color 0.2s;
+    border-radius: 14px; padding: 18px; margin-bottom: 10px; transition: border-color 0.2s;
   }
-  .section:focus-within { border-color: rgba(59,130,246,0.35); }
-  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-  .s-icon { width: 34px; height: 34px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
-  .s-blue { background: rgba(59,130,246,0.12); }
-  .s-teal { background: rgba(16,217,160,0.10); }
-  .s-orange { background: rgba(245,158,11,0.12); }
-  .s-red { background: rgba(239,68,68,0.10); }
-  .s-purple { background: rgba(167,139,250,0.12); }
-  .s-green { background: rgba(74,222,128,0.10); }
-  .s-yellow { background: rgba(250,204,21,0.10); }
-  .section-header h2 { font-family: 'Syne', sans-serif; font-size: 15px; font-weight: 700; color: #fff; }
-  .section-header p { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-  .field { margin-bottom: 15px; }
-  .field:last-child { margin-bottom: 0; }
-  label.fl { display: block; font-size: 12.5px; font-weight: 500; color: var(--muted2); margin-bottom: 7px; }
-  label.fl .req { color: var(--accent2); }
-  input[type="text"], input[type="tel"], input[type="email"], textarea, select {
-    width: 100%; background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 9px; color: var(--text); font-family: 'DM Sans', sans-serif;
-    font-size: 14px; padding: 10px 13px; outline: none; transition: border-color 0.2s, background 0.2s; appearance: none;
+  .section:focus-within { border-color: rgba(59,130,246,0.3); }
+  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border); }
+  .s-icon { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+  .s-blue{background:rgba(59,130,246,0.12);} .s-teal{background:rgba(16,217,160,0.10);}
+  .s-orange{background:rgba(245,158,11,0.12);} .s-red{background:rgba(239,68,68,0.10);}
+  .s-purple{background:rgba(167,139,250,0.12);} .s-green{background:rgba(74,222,128,0.10);}
+  .s-yellow{background:rgba(250,204,21,0.10);}
+  .section-header h2 { font-family:'Syne',sans-serif; font-size:14px; font-weight:700; color:#fff; }
+  .section-header p { font-size:11px; color:var(--muted); margin-top:2px; }
+  .field { margin-bottom:13px; }
+  .field:last-child { margin-bottom:0; }
+  label.fl { display:block; font-size:12px; font-weight:500; color:var(--muted2); margin-bottom:6px; }
+  label.fl .req { color:var(--accent2); }
+  input[type="text"],input[type="tel"],input[type="email"],textarea,select {
+    width:100%; background:var(--surface2); border:1px solid var(--border);
+    border-radius:9px; color:var(--text); font-family:'DM Sans',sans-serif;
+    font-size:15px; padding:11px 13px; outline:none;
+    transition:border-color 0.2s,background 0.2s; -webkit-appearance:none; appearance:none;
   }
-  input:focus, textarea:focus, select:focus { border-color: var(--accent); background: rgba(59,130,246,0.05); }
-  textarea { resize: vertical; min-height: 80px; }
-  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  @media (max-width: 500px) { .grid-2 { grid-template-columns: 1fr; } }
-  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
-  .chip input { display: none; }
+  input:focus,textarea:focus,select:focus { border-color:var(--accent); background:rgba(59,130,246,0.05); }
+  textarea { resize:vertical; min-height:80px; }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media(max-width:460px){ .grid-2 { grid-template-columns:1fr; } }
+  .chips { display:flex; flex-wrap:wrap; gap:7px; }
+  .chip input { display:none; }
   .chip label {
-    display: inline-flex; align-items: center; gap: 5px;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 8px; padding: 7px 12px; font-size: 12.5px; font-weight: 500;
-    color: var(--muted2); cursor: pointer; transition: all 0.15s; margin-bottom: 0; user-select: none;
+    display:inline-flex; align-items:center; gap:5px;
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:8px; padding:9px 13px; font-size:13px; font-weight:500;
+    color:var(--muted2); cursor:pointer; transition:all 0.15s; user-select:none;
+    -webkit-user-select:none; min-height:42px;
   }
-  .chip input:checked + label { background: rgba(59,130,246,0.14); border-color: var(--accent); color: #93c5fd; }
-  .chip.teal input:checked + label { background: rgba(16,217,160,0.12); border-color: var(--accent2); color: #6ee7c7; }
-  .chip.amber input:checked + label { background: rgba(245,158,11,0.12); border-color: var(--accent3); color: #fcd34d; }
-  .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
-  .toggle-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .toggle-row:first-child { padding-top: 0; }
-  .tl { font-size: 13.5px; color: #c8d0e8; }
-  .ts { font-size: 11.5px; color: var(--muted); margin-top: 2px; }
-  .toggle { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
-  .toggle input { opacity: 0; width: 0; height: 0; }
-  .tslider { position: absolute; inset: 0; background: rgba(255,255,255,0.08); border-radius: 11px; cursor: pointer; transition: 0.2s; }
-  .tslider::before { content: ''; position: absolute; width: 16px; height: 16px; left: 3px; top: 3px; background: #6b7280; border-radius: 50%; transition: 0.2s; }
-  .toggle input:checked + .tslider { background: var(--accent); }
-  .toggle input:checked + .tslider::before { transform: translateX(18px); background: #fff; }
-  .range-wrap { display: flex; align-items: center; gap: 12px; }
-  input[type="range"] { flex: 1; height: 4px; background: var(--border); border-radius: 2px; appearance: none; outline: none; border: none; padding: 0; }
-  input[type="range"]::-webkit-slider-thumb { appearance: none; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; cursor: pointer; }
-  .rval { background: rgba(59,130,246,0.12); border: 1px solid rgba(59,130,246,0.25); color: #93c5fd; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 6px; min-width: 64px; text-align: center; }
-  .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 8px; }
-  .page-chip input { display: none; }
+  .chip input:checked + label { background:rgba(59,130,246,0.14); border-color:var(--accent); color:#93c5fd; }
+  .chip.teal input:checked + label { background:rgba(16,217,160,0.12); border-color:var(--accent2); color:#6ee7c7; }
+  .chip.amber input:checked + label { background:rgba(245,158,11,0.12); border-color:var(--accent3); color:#fcd34d; }
+  .toggle-row { display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-bottom:1px solid rgba(255,255,255,0.04); gap:12px; }
+  .toggle-row:last-child { border-bottom:none; padding-bottom:0; }
+  .toggle-row:first-child { padding-top:0; }
+  .tl { font-size:13px; color:#c8d0e8; line-height:1.3; }
+  .ts { font-size:11px; color:var(--muted); margin-top:2px; }
+  .toggle { position:relative; width:42px; height:24px; flex-shrink:0; }
+  .toggle input { opacity:0; width:0; height:0; }
+  .tslider { position:absolute; inset:0; background:rgba(255,255,255,0.08); border-radius:12px; cursor:pointer; transition:0.2s; }
+  .tslider::before { content:''; position:absolute; width:18px; height:18px; left:3px; top:3px; background:#6b7280; border-radius:50%; transition:0.2s; }
+  .toggle input:checked + .tslider { background:var(--accent); }
+  .toggle input:checked + .tslider::before { transform:translateX(18px); background:#fff; }
+  .range-wrap { display:flex; align-items:center; gap:12px; }
+  input[type="range"] { flex:1; height:5px; background:var(--border); border-radius:3px; -webkit-appearance:none; appearance:none; outline:none; border:none; padding:0; }
+  input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; background:var(--accent); border-radius:50%; cursor:pointer; }
+  input[type="range"]::-moz-range-thumb { width:22px; height:22px; background:var(--accent); border-radius:50%; cursor:pointer; border:none; }
+  .rval { background:rgba(59,130,246,0.12); border:1px solid rgba(59,130,246,0.25); color:#93c5fd; font-size:12px; font-weight:600; padding:4px 10px; border-radius:6px; min-width:88px; text-align:center; white-space:nowrap; }
+  .pages-counter { display:flex; align-items:center; gap:10px; background:rgba(16,217,160,0.08); border:1px solid rgba(16,217,160,0.2); border-radius:10px; padding:10px 14px; margin-bottom:12px; }
+  .pages-counter span { font-size:12px; color:var(--muted2); }
+  .pages-counter strong { color:var(--accent2); font-size:17px; font-family:'Syne',sans-serif; font-weight:800; }
+  .pages-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:7px; }
+  @media(min-width:480px){ .pages-grid { grid-template-columns:repeat(3,1fr); } }
+  .page-chip input { display:none; }
   .page-chip label {
-    display: flex; align-items: center; gap: 9px;
-    background: var(--surface2); border: 1px solid var(--border);
-    border-radius: 9px; padding: 10px 13px; font-size: 13px; font-weight: 500;
-    color: var(--muted2); cursor: pointer; transition: all 0.15s; margin-bottom: 0; user-select: none;
+    display:flex; align-items:center; gap:7px;
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:9px; padding:10px 11px; font-size:12.5px; font-weight:500;
+    color:var(--muted2); cursor:pointer; transition:all 0.15s; user-select:none;
+    -webkit-user-select:none; min-height:44px;
   }
-  .page-chip label .pgn {
-    width: 22px; height: 22px; background: rgba(255,255,255,0.06);
-    border-radius: 6px; display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: var(--muted); flex-shrink: 0; transition: all 0.15s;
+  .page-chip label .pgn { width:20px; height:20px; background:rgba(255,255,255,0.06); border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:700; color:var(--muted); flex-shrink:0; transition:all 0.15s; }
+  .page-chip input:checked + label { background:rgba(16,217,160,0.1); border-color:var(--accent2); color:#6ee7c7; }
+  .page-chip input:checked + label .pgn { background:var(--accent2); color:#000; }
+  .btn-submit {
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:100%; background:linear-gradient(135deg,#3b82f6,#1d4ed8);
+    color:#fff; border:none; border-radius:12px;
+    font-family:'Syne',sans-serif; font-size:16px; font-weight:700;
+    padding:16px 32px; cursor:pointer; transition:transform 0.15s,box-shadow 0.15s,opacity 0.15s;
+    box-shadow:0 4px 24px rgba(59,130,246,0.3); letter-spacing:0.3px; min-height:54px;
   }
-  .page-chip input:checked + label { background: rgba(16,217,160,0.1); border-color: var(--accent2); color: #6ee7c7; }
-  .page-chip input:checked + label .pgn { background: var(--accent2); color: #000; }
-  .pages-counter {
-    display: flex; align-items: center; gap: 10px;
-    background: rgba(16,217,160,0.08); border: 1px solid rgba(16,217,160,0.2);
-    border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;
+  .btn-submit:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(59,130,246,0.45); }
+  .btn-submit:active { transform:scale(0.98); }
+  .btn-submit:disabled { opacity:0.6; cursor:not-allowed; transform:none; }
+  .submit-note { text-align:center; font-size:12px; color:var(--muted); margin-top:10px; }
+  .toast {
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120px);
+    background:#10d9a0; color:#000; font-family:'Syne',sans-serif;
+    font-size:14px; font-weight:700; padding:14px 22px; border-radius:12px;
+    box-shadow:0 8px 32px rgba(16,217,160,0.4); transition:transform 0.3s ease;
+    z-index:9999; max-width:88vw; text-align:center;
   }
-  .pages-counter span { font-size: 13px; color: var(--muted2); }
-  .pages-counter strong { color: var(--accent2); font-size: 18px; font-family: 'Syne', sans-serif; font-weight: 800; }
-  .wa-num-wrap { background: rgba(37,211,102,0.07); border: 1px solid rgba(37,211,102,0.2); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
-  .wa-num-wrap label.fl { color: #6ee7a0; }
-  .btn-wa {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    width: 100%; background: linear-gradient(135deg, #25d366, #128c7e);
-    color: #fff; border: none; border-radius: 12px;
-    font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 700;
-    padding: 16px 32px; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
-    box-shadow: 0 4px 24px rgba(37,211,102,0.25); letter-spacing: 0.3px;
-  }
-  .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(37,211,102,0.4); }
-  .btn-wa svg { width: 22px; height: 22px; fill: #fff; flex-shrink: 0; }
-  .wa-note { text-align: center; font-size: 12px; color: var(--muted); margin-top: 10px; }
-  .hint { font-size: 11.5px; color: var(--muted); margin-top: 5px; }
-  select option { background: #141928; }
+  .toast.show { transform:translateX(-50%) translateY(0); }
+  .toast.error { background:#ef4444; color:#fff; box-shadow:0 8px 32px rgba(239,68,68,0.4); }
+  .hint { font-size:11px; color:var(--muted); margin-top:5px; }
+  .spinner { width:18px; height:18px; border:2px solid rgba(255,255,255,0.3); border-top-color:#fff; border-radius:50%; animation:spin 0.6s linear infinite; flex-shrink:0; display:inline-block; }
+  @keyframes spin { to { transform:rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -174,40 +163,34 @@
 <div class="hero">
   <div class="hero-inner">
     <div class="mern-badge">⚡ MERN Stack Web Development</div>
-    <h1>Professional <span>E-Commerce Website</span><br>Requirements Form</h1>
-    <p>Fill in your details below. Once done, everything will be sent directly to the developer on WhatsApp — no typing needed!</p>
+    <h1>Professional <span>E-Commerce</span> Website Requirements</h1>
+    <p>Fill in your details below. Everything goes directly to the developer's email instantly!</p>
     <div class="mern-strip">
-      <div class="mern-pill">🌿 <strong>MongoDB</strong> Database</div>
-      <div class="mern-pill">⚡ <strong>Express.js</strong> Backend</div>
-      <div class="mern-pill">⚛️ <strong>React.js</strong> Frontend</div>
-      <div class="mern-pill">🟢 <strong>Node.js</strong> Server</div>
+      <div class="mern-pill">🌿 <strong>MongoDB</strong></div>
+      <div class="mern-pill">⚡ <strong>Express.js</strong></div>
+      <div class="mern-pill">⚛️ <strong>React.js</strong></div>
+      <div class="mern-pill">🟢 <strong>Node.js</strong></div>
     </div>
   </div>
 </div>
 
 <div class="benefits-wrap">
   <div class="benefits-grid">
-    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🚀</div><div><h4>Lightning Fast</h4><p>No page reloads — smooth experience like Daraz</p></div></div>
-    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🔒</div><div><h4>High Security</h4><p>JWT auth, encrypted passwords — safe from hackers</p></div></div>
-    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">📈</div><div><h4>Fully Scalable</h4><p>50 to 10,000+ products — no limits, no plugins</p></div></div>
-    <div class="benefit-card"><div style="font-size:20px;flex-shrink:0">🎛️</div><div><h4>Custom Admin Panel</h4><p>Products, orders, users — all in your control</p></div></div>
+    <div class="benefit-card"><div style="font-size:18px;flex-shrink:0">🚀</div><div><h4>Lightning Fast</h4><p>Smooth like Daraz</p></div></div>
+    <div class="benefit-card"><div style="font-size:18px;flex-shrink:0">🔒</div><div><h4>High Security</h4><p>JWT + encrypted</p></div></div>
+    <div class="benefit-card"><div style="font-size:18px;flex-shrink:0">📈</div><div><h4>Scalable</h4><p>50 to 10,000+ products</p></div></div>
+    <div class="benefit-card"><div style="font-size:18px;flex-shrink:0">🎛️</div><div><h4>Custom Admin</h4><p>Full control panel</p></div></div>
   </div>
 </div>
 
 <div class="form-wrap">
   <form id="reqForm">
 
-    <div class="wa-num-wrap">
-      <label class="fl">📲 Developer WhatsApp Number (your number — where data will arrive)</label>
-      <input type="tel" id="devWa" placeholder="+92 3XX XXXXXXX — enter YOUR number here">
-      <p class="hint">Client submits → WhatsApp opens → message arrives on this number</p>
-    </div>
-
     <!-- 1. Business Info -->
     <div class="section">
       <div class="section-header">
         <div class="s-icon s-blue">🏪</div>
-        <div><h2>Business Information</h2><p>Client's basic details</p></div>
+        <div><h2>Business Information</h2><p>Your basic details</p></div>
       </div>
       <div class="grid-2">
         <div class="field"><label class="fl">Full Name <span class="req">*</span></label><input type="text" id="name" placeholder="Your full name" required></div>
@@ -215,7 +198,7 @@
       </div>
       <div class="grid-2">
         <div class="field"><label class="fl">WhatsApp Number <span class="req">*</span></label><input type="tel" id="phone" placeholder="+92 3XX XXXXXXX" required></div>
-        <div class="field"><label class="fl">Email Address</label><input type="email" id="email" placeholder="optional"></div>
+        <div class="field"><label class="fl">Email Address</label><input type="email" id="clientEmail" placeholder="optional"></div>
       </div>
       <div class="field"><label class="fl">Shop Location / City <span class="req">*</span></label><input type="text" id="location" placeholder="e.g. Hafeez Centre, Lahore" required></div>
     </div>
@@ -224,7 +207,7 @@
     <div class="section">
       <div class="section-header">
         <div class="s-icon s-teal">📄</div>
-        <div><h2>Website Pages</h2><p>Tick all the pages you need</p></div>
+        <div><h2>Website Pages</h2><p>Tick all pages you need</p></div>
       </div>
       <div class="pages-counter">
         <span>Pages selected:</span>
@@ -232,19 +215,19 @@
         <span>pages</span>
       </div>
       <div class="pages-grid">
-        <div class="page-chip"><input type="checkbox" id="pg1" name="pages" value="Home Page"><label for="pg1"><span class="pgn">1</span>🏠 Home Page</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg2" name="pages" value="Shop / Products"><label for="pg2"><span class="pgn">2</span>🛒 Shop / Products</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg3" name="pages" value="Single Product Detail"><label for="pg3"><span class="pgn">3</span>💻 Product Detail</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg4" name="pages" value="Cart Page"><label for="pg4"><span class="pgn">4</span>🧺 Cart Page</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg1" name="pages" value="Home Page"><label for="pg1"><span class="pgn">1</span>🏠 Home</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg2" name="pages" value="Shop/Products"><label for="pg2"><span class="pgn">2</span>🛒 Shop</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg3" name="pages" value="Product Detail"><label for="pg3"><span class="pgn">3</span>💻 Product Detail</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg4" name="pages" value="Cart Page"><label for="pg4"><span class="pgn">4</span>🧺 Cart</label></div>
         <div class="page-chip"><input type="checkbox" id="pg5" name="pages" value="Checkout Page"><label for="pg5"><span class="pgn">5</span>💳 Checkout</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg6" name="pages" value="Order Confirmation"><label for="pg6"><span class="pgn">6</span>✅ Order Confirmation</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg7" name="pages" value="Login / Signup"><label for="pg7"><span class="pgn">7</span>🔐 Login / Signup</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg6" name="pages" value="Order Confirmation"><label for="pg6"><span class="pgn">6</span>✅ Order Confirm</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg7" name="pages" value="Login/Signup"><label for="pg7"><span class="pgn">7</span>🔐 Login/Signup</label></div>
         <div class="page-chip"><input type="checkbox" id="pg8" name="pages" value="My Account"><label for="pg8"><span class="pgn">8</span>👤 My Account</label></div>
         <div class="page-chip"><input type="checkbox" id="pg9" name="pages" value="My Orders"><label for="pg9"><span class="pgn">9</span>📦 My Orders</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg10" name="pages" value="Admin Dashboard"><label for="pg10"><span class="pgn">10</span>⚙️ Admin Dashboard</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg10" name="pages" value="Admin Dashboard"><label for="pg10"><span class="pgn">10</span>⚙️ Admin Panel</label></div>
         <div class="page-chip"><input type="checkbox" id="pg11" name="pages" value="Contact Us"><label for="pg11"><span class="pgn">11</span>📞 Contact Us</label></div>
         <div class="page-chip"><input type="checkbox" id="pg12" name="pages" value="About Us"><label for="pg12"><span class="pgn">12</span>ℹ️ About Us</label></div>
-        <div class="page-chip"><input type="checkbox" id="pg13" name="pages" value="Search Results"><label for="pg13"><span class="pgn">13</span>🔍 Search Results</label></div>
+        <div class="page-chip"><input type="checkbox" id="pg13" name="pages" value="Search Results"><label for="pg13"><span class="pgn">13</span>🔍 Search</label></div>
         <div class="page-chip"><input type="checkbox" id="pg14" name="pages" value="Wishlist Page"><label for="pg14"><span class="pgn">14</span>❤️ Wishlist</label></div>
       </div>
     </div>
@@ -269,14 +252,14 @@
       <div class="field">
         <label class="fl">Approx. total products?</label>
         <div class="range-wrap">
-          <input type="range" id="productCount" min="10" max="1000" step="10" value="100" oninput="document.getElementById('pcVal').textContent=this.value+' products'">
+          <input type="range" id="productCount" min="10" max="1000" step="10" value="100"
+            oninput="document.getElementById('pcVal').textContent=this.value+' products'">
           <div class="rval" id="pcVal">100 products</div>
         </div>
       </div>
       <div class="field">
         <label class="fl">Categories / Brands</label>
         <input type="text" id="categories" placeholder="e.g. Dell, HP, Lenovo, Gaming, Used, New">
-        <p class="hint">Comma separated</p>
       </div>
       <div class="field">
         <label class="fl">New or used items?</label>
@@ -325,7 +308,7 @@
         <div><h2>Payment & Orders</h2><p>How customers will pay</p></div>
       </div>
       <div class="field">
-        <label class="fl">Payment methods <span class="req">*</span></label>
+        <label class="fl">Payment methods</label>
         <div class="chips">
           <div class="chip teal"><input type="checkbox" id="pay1" name="payment" value="Cash on Delivery"><label for="pay1">💵 Cash on Delivery</label></div>
           <div class="chip teal"><input type="checkbox" id="pay2" name="payment" value="JazzCash"><label for="pay2">📲 JazzCash</label></div>
@@ -334,9 +317,8 @@
           <div class="chip teal"><input type="checkbox" id="pay5" name="payment" value="Debit/Credit Card"><label for="pay5">💳 Card</label></div>
         </div>
       </div>
-      <div class="toggle-row"><div><div class="tl">WhatsApp Order Button</div><div class="ts">Customer orders via WhatsApp message</div></div><label class="toggle"><input type="checkbox" id="pwa"><span class="tslider"></span></label></div>
       <div class="toggle-row"><div><div class="tl">Order Tracking Status</div><div class="ts">Pending → Shipped → Delivered</div></div><label class="toggle"><input type="checkbox" id="ptrack" checked><span class="tslider"></span></label></div>
-      <div class="field" style="margin-top:14px;">
+      <div class="field" style="margin-top:13px;">
         <label class="fl">Delivery coverage?</label>
         <div class="chips">
           <div class="chip"><input type="radio" id="del1" name="delivery" value="Lahore Only"><label for="del1">📍 Lahore Only</label></div>
@@ -396,8 +378,8 @@
       </div>
       <div class="toggle-row"><div><div class="tl">SEO (Appear on Google)</div><div class="ts">When people search laptops, your site shows</div></div><label class="toggle"><input type="checkbox" id="seo"><span class="tslider"></span></label></div>
       <div class="toggle-row"><div><div class="tl">Monthly Maintenance Package</div><div class="ts">Developer updates & manages site monthly</div></div><label class="toggle"><input type="checkbox" id="maint"><span class="tslider"></span></label></div>
-      <div class="field" style="margin-top:14px;">
-        <label class="fl">Code & website rights after delivery? <span class="req">*</span></label>
+      <div class="field" style="margin-top:13px;">
+        <label class="fl">Code & website rights after delivery?</label>
         <div class="chips">
           <div class="chip teal"><input type="radio" id="r1" name="rights" value="100% client owns everything"><label for="r1">✅ 100% mine</label></div>
           <div class="chip"><input type="radio" id="r2" name="rights" value="Shared rights"><label for="r2">🤝 Shared</label></div>
@@ -415,8 +397,8 @@
         <label class="fl">Budget range (PKR)?</label>
         <div class="chips">
           <div class="chip"><input type="radio" id="b1" name="budget" value="Under 30,000 PKR"><label for="b1">Under 30k</label></div>
-          <div class="chip"><input type="radio" id="b2" name="budget" value="30,000 – 60,000 PKR"><label for="b2">30k – 60k</label></div>
-          <div class="chip"><input type="radio" id="b3" name="budget" value="60,000 – 100,000 PKR"><label for="b3">60k – 100k</label></div>
+          <div class="chip"><input type="radio" id="b2" name="budget" value="30,000–60,000 PKR"><label for="b2">30k – 60k</label></div>
+          <div class="chip"><input type="radio" id="b3" name="budget" value="60,000–100,000 PKR"><label for="b3">60k – 100k</label></div>
           <div class="chip"><input type="radio" id="b4" name="budget" value="100,000+ PKR"><label for="b4">100k+</label></div>
         </div>
       </div>
@@ -435,19 +417,23 @@
       </div>
     </div>
 
-    <div style="margin-top:24px;">
-      <button type="submit" class="btn-wa">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-        Send Requirements on WhatsApp
+    <div style="margin-top:18px;">
+      <button type="submit" class="btn-submit" id="submitBtn">
+        <span id="btnText">📧 Send Requirements to Developer</span>
       </button>
-      <p class="wa-note">Clicking will open WhatsApp with all requirements pre-filled as a message to the developer</p>
+      <p class="submit-note">Your requirements will be emailed directly to the developer</p>
     </div>
 
   </form>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-  // Page counter
+  // ========== EmailJS Setup ==========
+  (function(){ emailjs.init({ publicKey: "GzmFM2SoWvYfZxJyp" }); })();
+  // ====================================
+
   document.querySelectorAll('input[name="pages"]').forEach(cb => {
     cb.addEventListener('change', () => {
       document.getElementById('pageCount').textContent =
@@ -455,84 +441,75 @@
     });
   });
 
-  // WhatsApp submit
-  document.getElementById('reqForm').addEventListener('submit', function(e) {
+  function showToast(msg, isError=false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4500);
+  }
+
+  const gc = n => [...document.querySelectorAll(`input[name="${n}"]:checked`)].map(x=>x.value).join(', ') || 'Not selected';
+  const gt = id => document.getElementById(id).checked ? 'Yes' : 'No';
+  const gv = id => document.getElementById(id).value.trim() || '—';
+
+  document.getElementById('reqForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-
-    const devRaw = document.getElementById('devWa').value.replace(/\D/g, '');
-    if (!devRaw) { alert('Please enter your WhatsApp number at the top first!'); return; }
-
-    const gc  = (name) => [...document.querySelectorAll(`input[name="${name}"]:checked`)].map(x => x.value).join(', ') || 'Not selected';
-    const gt  = (id)   => document.getElementById(id).checked ? '✅ Yes' : '❌ No';
-    const gv  = (id)   => document.getElementById(id).value.trim() || '—';
+    const btn = document.getElementById('submitBtn');
+    const btnText = document.getElementById('btnText');
     const pgCount = document.querySelectorAll('input[name="pages"]:checked').length;
 
-    const msg =
-`🖥️ *MERN STACK WEBSITE REQUIREMENTS*
-_Submitted via Requirements Form_
-━━━━━━━━━━━━━━━━━━━━━━━
+    btn.disabled = true;
+    btnText.innerHTML = '<span class="spinner"></span> Sending...';
 
-👤 *BUSINESS INFO*
-• Name: ${gv('name')}
-• Shop: ${gv('shopName')}
-• WhatsApp: ${gv('phone')}
-• Email: ${gv('email')}
-• Location: ${gv('location')}
+    const params = {
+      to_email:        'hafizmahtabafzal819@gmail.com',
+      client_name:     gv('name'),
+      shop_name:       gv('shopName'),
+      phone:           gv('phone'),
+      client_email:    gv('clientEmail'),
+      location:        gv('location'),
+      pages:           pgCount + ' pages: ' + gc('pages'),
+      products:        gc('products'),
+      product_count:   document.getElementById('productCount').value + ' products',
+      categories:      gv('categories'),
+      condition:       gc('usedItems'),
+      auth_email:      gt('a1'), auth_google:   gt('a2'),
+      auth_photo:      gt('a3'), auth_history:  gt('a4'),
+      auth_wishlist:   gt('a5'), auth_forgot:   gt('a6'),
+      adm_products:    gt('adm1'), adm_categories: gt('adm2'),
+      adm_orders:      gt('adm3'), adm_users:     gt('adm4'),
+      adm_analytics:   gt('adm5'), adm_stock:     gt('adm6'),
+      adm_banners:     gt('adm7'), adm_coupons:   gt('adm8'),
+      payment:         gc('payment'),
+      order_tracking:  gt('ptrack'),
+      delivery:        gc('delivery'),
+      design_assets:   gc('design'),
+      ref_site:        gv('refSite'),
+      language:        gc('lang'),
+      domain_have:     gc('domain'),
+      domain_name:     gv('domainName'),
+      seo:             gt('seo'),
+      maintenance:     gt('maint'),
+      rights:          gc('rights'),
+      budget:          gc('budget'),
+      timeline:        gc('timeline'),
+      notes:           gv('notes'),
+    };
 
-📄 *PAGES REQUIRED (${pgCount} pages)*
-${gc('pages')}
-
-💻 *PRODUCTS*
-• Types: ${gc('products')}
-• Total: ${document.getElementById('productCount').value} products
-• Categories: ${gv('categories')}
-• Condition: ${gc('usedItems')}
-
-🔐 *AUTHENTICATION*
-• Email Login: ${gt('a1')}
-• Google Login: ${gt('a2')}
-• Profile Picture: ${gt('a3')}
-• Order History: ${gt('a4')}
-• Wishlist: ${gt('a5')}
-• Forgot Password: ${gt('a6')}
-
-⚙️ *ADMIN DASHBOARD*
-• Product CRUD: ${gt('adm1')}
-• Category CRUD: ${gt('adm2')}
-• Order Management: ${gt('adm3')}
-• User Management: ${gt('adm4')}
-• Analytics: ${gt('adm5')}
-• Stock Tracking: ${gt('adm6')}
-• Banner Management: ${gt('adm7')}
-• Coupon Codes: ${gt('adm8')}
-
-💳 *PAYMENT & ORDERS*
-• Methods: ${gc('payment')}
-• WhatsApp Order: ${gt('pwa')}
-• Order Tracking: ${gt('ptrack')}
-• Delivery: ${gc('delivery')}
-
-🎨 *DESIGN & CONTENT*
-• Assets: ${gc('design')}
-• Reference: ${gv('refSite')}
-• Language: ${gc('lang')}
-
-🌐 *DOMAIN & RIGHTS*
-• Has Domain: ${gc('domain')}
-• Domain: ${gv('domainName')}
-• SEO: ${gt('seo')}
-• Monthly Maintenance: ${gt('maint')}
-• Rights: ${gc('rights')}
-
-📅 *BUDGET & TIMELINE*
-• Budget: ${gc('budget')}
-• Deadline: ${gc('timeline')}
-• Notes: ${gv('notes')}
-
-━━━━━━━━━━━━━━━━━━━━━━━
-⚡ MERN Stack — Fast, Secure & Scalable`;
-
-    window.open(`https://wa.me/${devRaw}?text=${encodeURIComponent(msg)}`, '_blank');
+    try {
+      await emailjs.send('service_mernform', 'template_requirements', params);
+      showToast('✅ Requirements sent successfully!');
+      document.getElementById('reqForm').reset();
+      document.getElementById('pageCount').textContent = '0';
+      document.getElementById('pcVal').textContent = '100 products';
+    } catch(err) {
+      console.error(err);
+      showToast('❌ Send failed. Check EmailJS setup.', true);
+    } finally {
+      btn.disabled = false;
+      btnText.textContent = '📧 Send Requirements to Developer';
+    }
   });
 </script>
 </body>
